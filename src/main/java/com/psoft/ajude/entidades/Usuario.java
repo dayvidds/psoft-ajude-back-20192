@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Usuario {
-    @Id @GeneratedValue
+    @Id
     @Getter private String email;
     @Getter @Setter private String primeiroNome;
     @Getter @Setter private String ultimoNome;
