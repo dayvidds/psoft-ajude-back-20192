@@ -1,4 +1,4 @@
-package com.psoft.ajude.controlador;
+package com.psoft.ajude.controladores;
 
 import com.psoft.ajude.entidades.Usuario;
 import com.psoft.ajude.servicos.ServicoUsuario;
@@ -18,7 +18,7 @@ public class ControladorUsuarios {
         this.servicoUsuario = servicoUsuario;
     }
 
-    @PostMapping("api/v1/cadastro")
+    @PostMapping("/cadastro")
     public ResponseEntity<Usuario> cadastraUsuario(@RequestBody Usuario usuario){
         return new ResponseEntity<Usuario> (servicoUsuario.cadastraUsuario(usuario), HttpStatus.CREATED);
     }
