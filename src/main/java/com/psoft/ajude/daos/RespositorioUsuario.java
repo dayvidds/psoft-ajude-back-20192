@@ -4,6 +4,10 @@ import com.psoft.ajude.entidades.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
+import java.util.Optional;
 
-public interface RespositorioUsuario<T, email extends Serializable> extends JpaRepository<Usuario, String> {
+public interface RespositorioUsuario<T, ID extends Serializable> extends JpaRepository<Usuario, String> {
+
+
+    Optional<T> findByEmail(String email);
 }
