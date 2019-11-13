@@ -29,7 +29,7 @@ public class ControladorLogin {
 
         Optional<Usuario> authUsuario = servicoUsuario.getUsuario(usuario.getEmail());
 
-        if (authUsuario.isEmpty()) {
+        if (!authUsuario.isPresent()) {
             throw new ServletException("Usuario nao encontrado!");
         }
 
