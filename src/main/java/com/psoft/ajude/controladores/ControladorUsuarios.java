@@ -16,7 +16,7 @@ public class ControladorUsuarios {
     private ServicoUsuario servicoUsuario;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Usuario> cadastraUsuario(@RequestBody Usuario usuario){
-        return new ResponseEntity<Usuario> (servicoUsuario.cadastraUsuario(usuario), HttpStatus.CREATED);
+    public ResponseEntity<Usuario> cadastraUsuario(@RequestBody Usuario usuario) {
+        return new ResponseEntity<Usuario>(servicoUsuario.cadastraUsuario(usuario), HttpStatus.CREATED);
     }
 }

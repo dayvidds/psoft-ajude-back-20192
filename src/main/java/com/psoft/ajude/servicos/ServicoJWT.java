@@ -1,10 +1,6 @@
 package com.psoft.ajude.servicos;
 
-import java.util.Date;
-import java.util.Optional;
-
 import com.psoft.ajude.entidades.Usuario;
-
 import com.psoft.ajude.filtros.TokenFilter;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -13,17 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
 public class ServicoJWT {
 
+    private final String TOKEN_KEY = "bdNaoehbomtaokay?";
     @Autowired
     private ServicoUsuario servicoUsuario;
-    private final String TOKEN_KEY = "bdNaoehbomtaokay?";
 
-    public boolean usuarioCadastrado (String authorizationHeader, String email) throws ServletException {
-        String subject =  getSujeitoDoToken(authorizationHeader);
+    public boolean usuarioCadastrado(String authorizationHeader, String email) throws ServletException {
+        String subject = getSujeitoDoToken(authorizationHeader);
 
         Optional<Usuario> optionalUsuario = servicoUsuario.getUsuario(subject);
         return optionalUsuario.isPresent() && optionalUsuario.get().getEmail().equals(email);
