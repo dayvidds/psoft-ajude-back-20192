@@ -38,3 +38,4 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 .idea/
+dados.mv.db
