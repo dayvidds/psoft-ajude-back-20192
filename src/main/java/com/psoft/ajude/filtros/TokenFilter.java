@@ -1,6 +1,6 @@
 package com.psoft.ajude.filtros;
 
-import java.io.IOException;
+import io.jsonwebtoken.*;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -8,13 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.PrematureJwtException;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import java.io.IOException;
 
 
 public class TokenFilter {

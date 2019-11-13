@@ -18,7 +18,7 @@ public class ControladorLogin {
     private ServicoUsuario servicoUsuario;
     private ServicoJWT servicoJwt;
 
-    public ControladorLogin (ServicoUsuario servicoUsuario, ServicoJWT servicoJwt){
+    public ControladorLogin(ServicoUsuario servicoUsuario, ServicoJWT servicoJwt) {
         super();
         this.servicoUsuario = servicoUsuario;
         this.servicoJwt = servicoJwt;

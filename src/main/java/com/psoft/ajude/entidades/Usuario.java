@@ -1,9 +1,9 @@
 package com.psoft.ajude.entidades;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
 
@@ -26,28 +26,28 @@ public class Usuario {
         return primeiroNome;
     }
 
-    public String getUltimoNome() {
-        return ultimoNome;
-    }
-
-    public String getNumCartao() {
-        return numCartao;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
     public void setPrimeiroNome(String primeiroNome) {
         this.primeiroNome = primeiroNome;
+    }
+
+    public String getUltimoNome() {
+        return ultimoNome;
     }
 
     public void setUltimoNome(String ultimoNome) {
         this.ultimoNome = ultimoNome;
     }
 
+    public String getNumCartao() {
+        return numCartao;
+    }
+
     public void setNumCartao(String numCartao) {
         this.numCartao = numCartao;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public void setSenha(String senha) {

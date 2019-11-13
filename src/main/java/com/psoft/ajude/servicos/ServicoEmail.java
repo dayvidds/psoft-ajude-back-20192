@@ -12,7 +12,7 @@ public class ServicoEmail {
 
     private final Session session;
 
-    public ServicoEmail(){
+    public ServicoEmail() {
         Properties props = new Properties();
         /** Parâmetros de conexão com servidor Gmail */
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -24,8 +24,7 @@ public class ServicoEmail {
 
         this.session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication()
-                    {
+                    protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication("ajude.psoft.2019@gmail.com", "loacehpesod+");
                     }
                 });
@@ -37,7 +36,7 @@ public class ServicoEmail {
     }
 
     public String getCadastroEmailSubject() {
-        return  "Cadastro no AJuDE";
+        return "Cadastro no AJuDE";
     }
 
     public void mandarEmail(String email, String corpo, String assunto) {
@@ -54,7 +53,7 @@ public class ServicoEmail {
 
             Transport.send(message);
 
-        } catch (MessagingException e){
+        } catch (MessagingException e) {
             System.out.println(e.getMessage());
         }
 

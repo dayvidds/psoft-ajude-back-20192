@@ -15,7 +15,7 @@ public class ServicoUsuario {
     @Autowired
     private ServicoEmail emailService;
 
-    public ServicoUsuario(RespositorioUsuario<Usuario, String> usuariosDAO){
+    public ServicoUsuario(RespositorioUsuario<Usuario, String> usuariosDAO) {
         super();
         this.usuariosDAO = usuariosDAO;
     }
