@@ -9,6 +9,7 @@ import com.psoft.ajude.filtros.TokenFilter;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
@@ -16,13 +17,10 @@ import java.util.Optional;
 
 @Service
 public class ServicoJWT {
+
+    @Autowired
     private ServicoUsuario servicoUsuario;
     private final String TOKEN_KEY = "bdNaoehbomtaokay?";
-
-    public ServicoJWT(ServicoUsuario servicoUsuario){
-        super();
-        this.servicoUsuario = servicoUsuario;
-    }
 
     public boolean usuarioCadastrado (String authorizationHeader, String email) throws ServletException {
         String subject =  getSujeitoDoToken(authorizationHeader);
