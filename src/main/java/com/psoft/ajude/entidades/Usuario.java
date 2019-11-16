@@ -15,7 +15,7 @@ public class Usuario {
     private String email;
     private String primeiroNome;
     private String ultimoNome;
-    private String numCartao;
+    private String numeroDoCartao;
     private String senha;
 
     public String getEmail() {
@@ -38,12 +38,12 @@ public class Usuario {
         this.ultimoNome = ultimoNome;
     }
 
-    public String getNumCartao() {
-        return numCartao;
+    public String getNumeroDoCartao() {
+        return numeroDoCartao;
     }
 
-    public void setNumCartao(String numCartao) {
-        this.numCartao = numCartao;
+    public void setNumeroDoCartao(String numeroDoCartao) {
+        this.numeroDoCartao = numeroDoCartao;
     }
 
     public String getSenha() {
@@ -62,12 +62,12 @@ public class Usuario {
         return Objects.equals(email, usuario.email) &&
                 Objects.equals(primeiroNome, usuario.primeiroNome) &&
                 Objects.equals(ultimoNome, usuario.ultimoNome) &&
-                Objects.equals(numCartao, usuario.numCartao) &&
+                Objects.equals(numeroDoCartao, usuario.numeroDoCartao) &&
                 Objects.equals(senha, usuario.senha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, primeiroNome, ultimoNome, numCartao, senha);
+        return Objects.hash(email, primeiroNome, ultimoNome, numeroDoCartao, senha);
     }
 }
