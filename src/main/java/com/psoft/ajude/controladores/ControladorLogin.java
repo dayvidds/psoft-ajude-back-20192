@@ -3,6 +3,7 @@ package com.psoft.ajude.controladores;
 import com.psoft.ajude.entidades.Usuario;
 import com.psoft.ajude.servicos.ServicoJWT;
 import com.psoft.ajude.servicos.ServicoUsuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +16,12 @@ import java.util.Optional;
 @RequestMapping("/autorizacao")
 public class ControladorLogin {
 
+    @Autowired
     private ServicoUsuario servicoUsuario;
+
+    @Autowired
     private ServicoJWT servicoJwt;
 
-    public ControladorLogin(ServicoUsuario servicoUsuario, ServicoJWT servicoJwt) {
-        super();
-        this.servicoUsuario = servicoUsuario;
-        this.servicoJwt = servicoJwt;
-    }
 
     @PostMapping("/login")
     public LoginResponse authenticate(@RequestBody Usuario usuario) throws ServletException {
