@@ -17,7 +17,7 @@ public class ControladorUsuarios {
     @Autowired
     private ServicoUsuario servicoUsuario;
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<Usuario> cadastraUsuario(@RequestBody Usuario usuario) {
         return new ResponseEntity<Usuario>(servicoUsuario.cadastraUsuario(usuario), HttpStatus.CREATED);
     }
