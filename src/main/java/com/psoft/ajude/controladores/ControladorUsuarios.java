@@ -1,5 +1,6 @@
 package com.psoft.ajude.controladores;
 
+import com.psoft.ajude.dtos.DTOUsuario;
 import com.psoft.ajude.entidades.Usuario;
 import com.psoft.ajude.servicos.ServicoUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ControladorUsuarios {
     private ServicoUsuario servicoUsuario;
 
     @PostMapping()
-    public ResponseEntity<Usuario> cadastraUsuario(@RequestBody Usuario usuario) {
-        return new ResponseEntity<Usuario>(servicoUsuario.cadastraUsuario(usuario), HttpStatus.CREATED);
+    public ResponseEntity<DTOUsuario> cadastraUsuario(@RequestBody Usuario usuario) {
+        return new ResponseEntity<>(servicoUsuario.cadastraUsuario(usuario), HttpStatus.CREATED);
     }
 }
