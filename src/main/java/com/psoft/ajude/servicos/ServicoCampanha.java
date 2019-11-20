@@ -9,6 +9,8 @@ import com.psoft.ajude.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ServicoCampanha {
 
@@ -29,5 +31,9 @@ public class ServicoCampanha {
         this.campanhaDAO.save(campanha);
 
         return new DTOCampanha(campanha, new DTOUsuario(usuario));
+    }
+
+    public List<Campanha> pesquisarCampanha(String parametro) {
+        return campanhaDAO.findByNomeCurtoIgnoreCaseContaining(parametro);
     }
 }
