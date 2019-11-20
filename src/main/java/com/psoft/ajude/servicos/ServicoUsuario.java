@@ -1,6 +1,6 @@
 package com.psoft.ajude.servicos;
 
-import com.psoft.ajude.daos.RespositorioUsuario;
+import com.psoft.ajude.daos.RepositorioUsuario;
 import com.psoft.ajude.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ import java.util.Optional;
 public class ServicoUsuario {
 
     @Autowired
-    private RespositorioUsuario<Usuario, String> usuariosDAO;
+    private RepositorioUsuario<Usuario, String> usuariosDAO;
     @Autowired
     private ServicoEmail emailService;
 
-    public ServicoUsuario(RespositorioUsuario<Usuario, String> usuariosDAO) {
+    public ServicoUsuario(RepositorioUsuario<Usuario, String> usuariosDAO) {
         super();
         this.usuariosDAO = usuariosDAO;
     }
