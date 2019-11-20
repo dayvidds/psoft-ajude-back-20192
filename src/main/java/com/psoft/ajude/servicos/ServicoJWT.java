@@ -26,7 +26,7 @@ public class ServicoJWT {
         return optionalUsuario.isPresent() && optionalUsuario.get().getEmail().equals(email);
     }
 
-    private String getSujeitoDoToken(String authorizationHeader) throws ServletException {
+    public String getSujeitoDoToken(String authorizationHeader) throws ServletException {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             throw new ServletException("Token inexistente ou mal formatado!");
         }
@@ -35,7 +35,7 @@ public class ServicoJWT {
 
         String subject = null;
         try {
-            subject = Jwts.parser().setSigningKey("bdNaoehbomtaokay?").parseClaimsJws(token).getBody().getSubject();
+            subject = Jwts.parser().setSigningKey(TOKEN_KEY).parseClaimsJws(token).getBody().getSubject();
         } catch (SignatureException e) {
             throw new ServletException("Token invalido ou expirado!");
         }
