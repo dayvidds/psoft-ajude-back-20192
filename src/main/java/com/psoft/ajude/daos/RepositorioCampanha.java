@@ -8,6 +8,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Repository
-public interface RepositorioCampanha<T, ID extends Serializable> extends JpaRepository<Campanha, Integer> {
+public interface RepositorioCampanha<T, ID extends Serializable> extends JpaRepository<Campanha, String> {
     List<Campanha> findByNomeCurtoIgnoreCaseContaining(String parametro);
 }
