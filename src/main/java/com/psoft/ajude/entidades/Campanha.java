@@ -166,6 +166,7 @@ public class Campanha {
 
     public String getURL() {
         return Arrays.stream(this.nomeCurto.split(" "))
+                .filter(s -> !s.isEmpty())
                 .map(String::toLowerCase)
                 .map(Util::removerCaracteresDesnecessarios)
                 .collect(Collectors.joining("-"));
