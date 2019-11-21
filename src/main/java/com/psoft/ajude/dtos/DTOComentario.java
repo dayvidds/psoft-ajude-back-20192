@@ -13,6 +13,7 @@ public class DTOComentario {
     private Integer idComentarioPai;
     private String conteudo;
     private Usuario donoComentario;
+    private Integer id;
 
     public DTOComentario(Usuario usuario, String conteudo, Campanha campanha, Integer idComentarioPai){
         this.conteudo = conteudo;
@@ -35,5 +36,13 @@ public class DTOComentario {
 
     public Usuario getDonoComentario() {
         return donoComentario;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setIdComentario(Integer id) {
+        this.id = id;
     }
 }

@@ -73,6 +73,7 @@ public class ServicoCampanha {
         } else {
             dtoComentario.getCampanha().getComentarios().get(dtoComentario.getIdComentarioPai()).setResposta(comentario);
         }
+        dtoComentario.setIdComentario(comentario.getId());
         return dtoComentario;
     }
 }
