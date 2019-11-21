@@ -1,10 +1,12 @@
 package com.psoft.ajude.entidades;
 
+import com.psoft.ajude.util.Util;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @AllArgsConstructor
@@ -160,5 +162,12 @@ public class Campanha {
     @Override
     public int hashCode() {
         return Objects.hash(id, nomeCurto);
+    }
+
+    public String getURL() {
+        return Arrays.stream(this.nomeCurto.split(" "))
+                .map(String::toLowerCase)
+                .map(Util::removerCaracteresDesnecessarios)
+                .collect(Collectors.joining("-"));
     }
 }

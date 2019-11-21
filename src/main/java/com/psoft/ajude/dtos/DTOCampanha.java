@@ -16,6 +16,7 @@ public class DTOCampanha {
     private Date deadline;
     private Double meta;
     private StatusCampanha statusCampanha;
+    private String url;
     private DTOUsuario usuarioDono;
 
     public DTOCampanha(Campanha campanha, DTOUsuario dtoUsuario) {
@@ -24,6 +25,7 @@ public class DTOCampanha {
         this.deadline = campanha.getDeadline();
         this.meta = campanha.getMeta();
         this.statusCampanha = campanha.getStatusCampanha();
+        this.url = campanha.getURL();
         this.usuarioDono = dtoUsuario;
 
     }
@@ -46,6 +48,10 @@ public class DTOCampanha {
 
     public StatusCampanha getStatusCampanha() {
         return statusCampanha;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public DTOUsuario getUsuarioDono() {
