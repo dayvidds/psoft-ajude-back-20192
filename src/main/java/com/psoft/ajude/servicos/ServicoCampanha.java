@@ -54,24 +54,15 @@ public class ServicoCampanha {
         return optionalCampanha.get();
     }
 
-    public Comentario adicionaComentario(Comentario comentario, String urlCampanha) throws ServletException {
-        Optional<Campanha> optionalCampanha = campanhaDAO.findById(urlCampanha);
-        if (!optionalCampanha.isPresent()) {
-            throw new ServletException("Campanha não cadastrada");
-        }
-
-        Campanha campanha = campanhaDAO.findByIdContaining(urlCampanha);
-        campanha.adicionarComentario(comentario);
-
-        return comentario;
-    }
-
     public DTOComentario adicionaComentario(DTOComentario dtoComentario) {
-        Comentario comentario = new Comentario(dtoComentario.getDonoComentario(), dtoComentario.getConteudo());
+        Usuario usuario = usuariosDAO.findByIdContaining(dtoComentario.getDonoComentario().getEmail());
+        Comentario comentario = new Comentario(usuario, dtoComentario.getConteudo());
+        Campanha campanha = campanhaDAO.findByIdContaining(dtoComentario.getIdCampanha());
+
         if (dtoComentario.getIdComentarioPai() == 0){
-            dtoComentario.getCampanha().adicionarComentario(comentario);
+            campanha.adicionarComentario(comentario);
         } else {
-            dtoComentario.getCampanha().getComentarios().get(dtoComentario.getIdComentarioPai()).setResposta(comentario);
+            campanha.getComentarios().get(dtoComentario.getIdComentarioPai()).setResposta(comentario);
         }
         dtoComentario.setIdComentario(comentario.getId());
         return dtoComentario;

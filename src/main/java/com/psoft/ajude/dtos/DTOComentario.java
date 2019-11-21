@@ -1,7 +1,6 @@
 package com.psoft.ajude.dtos;
 
 import com.psoft.ajude.entidades.Campanha;
-import com.psoft.ajude.entidades.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -9,21 +8,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DTOComentario {
 
-    private Campanha campanha;
+    private String idCampanha;
     private Integer idComentarioPai;
     private String conteudo;
-    private Usuario donoComentario;
+    private DTOUsuario donoComentario;
     private Integer id;
 
-    public DTOComentario(Usuario usuario, String conteudo, Campanha campanha, Integer idComentarioPai){
+    public DTOComentario(DTOUsuario dtoUsuario, String conteudo, String idCampanha, Integer idComentarioPai){
         this.conteudo = conteudo;
-        this.donoComentario = usuario;
-        this.campanha = campanha;
+        this.donoComentario = dtoUsuario;
+        this.idCampanha = idCampanha;
         this.idComentarioPai = idComentarioPai;
     }
 
-    public Campanha getCampanha() {
-        return campanha;
+    public String getIdCampanha() {
+        return idCampanha;
     }
 
     public Integer getIdComentarioPai() {
@@ -34,7 +33,7 @@ public class DTOComentario {
         return conteudo;
     }
 
-    public Usuario getDonoComentario() {
+    public DTOUsuario getDonoComentario() {
         return donoComentario;
     }
 
