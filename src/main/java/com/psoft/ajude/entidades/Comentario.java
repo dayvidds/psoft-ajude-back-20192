@@ -1,6 +1,8 @@
 package com.psoft.ajude.entidades;
 
 
+import com.psoft.ajude.dtos.DTOUsuario;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +19,11 @@ public class Comentario {
     private Comentario resposta;
     @OneToOne
     private Usuario donoComentario;
+
+    public Comentario(Usuario donoComentario, String conteudo) {
+        this.donoComentario = donoComentario;
+
+    }
 
     public Integer getId() {
         return id;
