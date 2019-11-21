@@ -3,6 +3,7 @@ package com.psoft.ajude.controladores;
 import com.psoft.ajude.dtos.DTOCampanha;
 import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.entidades.Campanha;
+import com.psoft.ajude.entidades.Usuario;
 import com.psoft.ajude.servicos.ServicoCampanha;
 import com.psoft.ajude.servicos.ServicoJWT;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/campanha")
@@ -29,12 +31,12 @@ public class ControladorCampanha {
 
     @PostMapping("/pesquisa")
     public ResponseEntity<List<Campanha>> pesquisaCampanha(@RequestBody DTOPesquisa dtoPesquisa, @RequestHeader("Authorization") String token) throws ServletException {
-        return new ResponseEntity(servicoCampanha.pesquisarCampanha(dtoPesquisa), HttpStatus.OK);
+        return new ResponseEntity<>(servicoCampanha.pesquisarCampanha(dtoPesquisa), HttpStatus.OK);
     }
 
     @GetMapping("/{urlCampanha}")
     public ResponseEntity<Campanha> retornaCampanha(@PathVariable String urlCampanha, @RequestHeader("Authorization") String token) throws ServletException {
-        return new ResponseEntity(servicoCampanha.retornaCampanha(urlCampanha), HttpStatus.OK);
+        return new ResponseEntity<>(servicoCampanha.retornaCampanha(urlCampanha), HttpStatus.OK);
     }
 
 }
