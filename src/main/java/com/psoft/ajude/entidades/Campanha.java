@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 public class Campanha {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    private String id;
     private String nomeCurto;
     private String descricao;
     private Date deadline;
@@ -42,9 +41,11 @@ public class Campanha {
         this.doacoes = new ArrayList<>();
         this.comentarios = new ArrayList<>();
         this.likesUsuarios = new HashSet<>();
+
+        this.id = getURL();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
