@@ -29,7 +29,7 @@ public class ControladorCampanha {
 
     @PostMapping("/pesquisa")
     public ResponseEntity<List<Campanha>> pesquisaCampanha(@RequestBody DTOPesquisa dtoPesquisa, @RequestHeader("Authorization") String token) throws ServletException {
-        return new ResponseEntity(servicoCampanha.pesquisarCampanha(dtoPesquisa.getParametro()), HttpStatus.OK);
+        return new ResponseEntity(servicoCampanha.pesquisarCampanha(dtoPesquisa), HttpStatus.OK);
     }
 
 }
