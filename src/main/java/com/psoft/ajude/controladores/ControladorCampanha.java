@@ -32,4 +32,9 @@ public class ControladorCampanha {
         return new ResponseEntity(servicoCampanha.pesquisarCampanha(dtoPesquisa), HttpStatus.OK);
     }
 
+    @GetMapping("/{urlCampanha}")
+    public ResponseEntity<Campanha> retornaCampanha(@PathVariable String urlCampanha, @RequestHeader("Authorization") String token) throws ServletException {
+        return new ResponseEntity(servicoCampanha.retornaCampanha(urlCampanha), HttpStatus.OK);
+    }
+
 }
