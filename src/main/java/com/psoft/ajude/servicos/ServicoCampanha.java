@@ -3,13 +3,17 @@ package com.psoft.ajude.servicos;
 import com.psoft.ajude.daos.RepositorioCampanha;
 import com.psoft.ajude.daos.RepositorioUsuario;
 import com.psoft.ajude.dtos.DTOCampanha;
+import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.dtos.DTOUsuario;
 import com.psoft.ajude.entidades.Campanha;
+import com.psoft.ajude.entidades.StatusCampanha;
 import com.psoft.ajude.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ServicoCampanha {
@@ -33,7 +37,9 @@ public class ServicoCampanha {
         return new DTOCampanha(campanha, new DTOUsuario(usuario));
     }
 
-    public List<Campanha> pesquisarCampanha(String parametro) {
-        return campanhaDAO.findByNomeCurtoIgnoreCaseContaining(parametro);
+    public List<Campanha> pesquisarCampanha(DTOPesquisa dtoPesquisa) {
+        return campanhaDAO.findByNomeCurtoIgnoreCaseContaining(dtoPesquisa.getParametro()).stream()
+                .filter(campanha -> dtoPesquisa.getStatusProcurados().contains(campanha.getStatusCampanha()))
+                .collect(Collectors.toList());
     }
 }
