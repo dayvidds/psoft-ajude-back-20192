@@ -1,11 +1,14 @@
 package com.psoft.ajude.servicos;
 
 import com.psoft.ajude.daos.RepositorioCampanha;
+import com.psoft.ajude.daos.RepositorioDoacao;
 import com.psoft.ajude.daos.RepositorioUsuario;
 import com.psoft.ajude.dtos.DTOCampanha;
+import com.psoft.ajude.dtos.DTODoacao;
 import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.dtos.DTOUsuario;
 import com.psoft.ajude.entidades.Campanha;
+import com.psoft.ajude.entidades.Doacao;
 import com.psoft.ajude.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ public class ServicoCampanha {
     private RepositorioCampanha<Campanha, Integer> campanhaDAO;
     @Autowired
     private RepositorioUsuario<Usuario, String> usuariosDAO;
+    @Autowired
+    private RepositorioDoacao<Doacao, Integer> doacoesDAO;
 
     public DTOCampanha cadastrarCampanha(DTOCampanha dtoCampanha, String emailDono) {
         Usuario usuario = this.usuariosDAO.findByEmail(emailDono).get();
@@ -57,5 +62,13 @@ public class ServicoCampanha {
         Campanha campanha = campanhaDAO.findById(urlCampanha).get();
         campanha.toggleLike(usuario);
         return campanhaDAO.save(campanha).getLikesUsuarios();
+    }
+
+    public List<Doacao> adicionaDoacao(String urlCampanha, DTODoacao dtoDoacao, Usuario usuario) {
+        Campanha campanha = campanhaDAO.findById(urlCampanha).get();
+        Doacao doacao = new Doacao(dtoDoacao, usuario);
+        doacoesDAO.save(doacao);
+        campanha.adicionarDoacao(doacao);
+        return campanhaDAO.save(campanha).getDoacoes();
     }
 }
