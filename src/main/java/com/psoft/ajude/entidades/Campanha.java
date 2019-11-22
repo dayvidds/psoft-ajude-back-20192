@@ -173,4 +173,12 @@ public class Campanha {
                 .map(Util::removerCaracteresDesnecessarios)
                 .collect(Collectors.joining("-"));
     }
+
+    public Double getQuantiaFaltante() {
+        return this.getMeta() - this.getQuantidadeDoacoes();
+    }
+
+    public boolean isAtiva() {
+        return getStatusCampanha().equals(StatusCampanha.ATIVA);
+    }
 }

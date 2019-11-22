@@ -4,6 +4,7 @@ import com.psoft.ajude.dtos.DTOCampanha;
 import com.psoft.ajude.dtos.DTODoacao;
 import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.entidades.Campanha;
+import com.psoft.ajude.entidades.MetodoComparacaoCampanha;
 import com.psoft.ajude.entidades.Doacao;
 import com.psoft.ajude.entidades.Usuario;
 import com.psoft.ajude.servicos.ServicoCampanha;
@@ -51,4 +52,8 @@ public class ControladorCampanha {
         return new ResponseEntity<>(servicoCampanha.adicionaDoacao(urlCampanha, dtoDoacao, servicoJWT.getUsuario(token)), HttpStatus.OK);
     }
 
+    @GetMapping()
+    public ResponseEntity<List<Campanha>> retornaCampanhas(@RequestHeader("Metodo") MetodoComparacaoCampanha metodoComparacaoCampanha) {
+        return new ResponseEntity<>(servicoCampanha.retornaCampanhas(metodoComparacaoCampanha), HttpStatus.OK);
+    }
 }
