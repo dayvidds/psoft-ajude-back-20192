@@ -55,9 +55,9 @@ public class ServicoCampanha {
     }
   
     public DTOComentario adicionaComentario(DTOComentario dtoComentario) {
-        Usuario usuario = usuariosDAO.findByIdContaining(dtoComentario.getDonoComentario().getEmail());
+        Usuario usuario = usuariosDAO.findById(dtoComentario.getDonoComentario().getEmail()).get();
         Comentario comentario = new Comentario(usuario, dtoComentario.getConteudo());
-        Campanha campanha = campanhaDAO.findByIdContaining(dtoComentario.getIdCampanha());
+        Campanha campanha = campanhaDAO.findById(dtoComentario.getIdCampanha()).get();
 
         if (dtoComentario.getIdComentarioPai() == 0){
             campanha.adicionarComentario(comentario);
