@@ -1,19 +1,20 @@
 package com.psoft.ajude.servicos;
 
+import com.psoft.ajude.comparadores.CampanhaDeadlineComparator;
+import com.psoft.ajude.comparadores.CampanhaMetaComparator;
 import com.psoft.ajude.daos.RepositorioCampanha;
 import com.psoft.ajude.daos.RepositorioUsuario;
 import com.psoft.ajude.dtos.DTOCampanha;
 import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.dtos.DTOUsuario;
 import com.psoft.ajude.entidades.Campanha;
+import com.psoft.ajude.entidades.MetodoComparacaoCampanha;
 import com.psoft.ajude.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +24,15 @@ public class ServicoCampanha {
     private RepositorioCampanha<Campanha, Integer> campanhaDAO;
     @Autowired
     private RepositorioUsuario<Usuario, String> usuariosDAO;
+    private Map<MetodoComparacaoCampanha, Comparator<Campanha>> metodosComparacao;
+
+    public ServicoCampanha() {
+        this.metodosComparacao = new HashMap<>();
+
+        metodosComparacao.put(MetodoComparacaoCampanha.META, new CampanhaMetaComparator());
+        metodosComparacao.put(MetodoComparacaoCampanha.DEADLINE, new CampanhaDeadlineComparator());
+        metodosComparacao.put(MetodoComparacaoCampanha.LIKES, new CampanhaMetaComparator());
+    }
 
     public DTOCampanha cadastrarCampanha(DTOCampanha dtoCampanha, String emailDono) {
         Usuario usuario = this.usuariosDAO.findByEmail(emailDono).get();
@@ -53,10 +63,10 @@ public class ServicoCampanha {
         return optionalCampanha.get();
     }
 
-    public List<Campanha> retornaCampanhas() {
+    public List<Campanha> retornaCampanhas(MetodoComparacaoCampanha metodoComparacaoCampanha) {
         return campanhaDAO.findAll().stream()
                 .filter(c -> c.isAtiva())
-                .sorted(Comparator.comparingDouble(Campanha::getQuantiaFaltante))
+                .sorted(this.metodosComparacao.get(metodoComparacaoCampanha))
                 .collect(Collectors.toList());
     }
 }

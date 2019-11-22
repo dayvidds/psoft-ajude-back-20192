@@ -3,6 +3,7 @@ package com.psoft.ajude.controladores;
 import com.psoft.ajude.dtos.DTOCampanha;
 import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.entidades.Campanha;
+import com.psoft.ajude.entidades.MetodoComparacaoCampanha;
 import com.psoft.ajude.servicos.ServicoCampanha;
 import com.psoft.ajude.servicos.ServicoJWT;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,8 @@ public class ControladorCampanha {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Campanha>> retornaCampanhas() {
-        return new ResponseEntity<>(servicoCampanha.retornaCampanhas(), HttpStatus.OK);
+    public ResponseEntity<List<Campanha>> retornaCampanhas(@RequestHeader("Metodo") MetodoComparacaoCampanha metodoComparacaoCampanha) {
+        return new ResponseEntity<>(servicoCampanha.retornaCampanhas(metodoComparacaoCampanha), HttpStatus.OK);
     }
 
 }
