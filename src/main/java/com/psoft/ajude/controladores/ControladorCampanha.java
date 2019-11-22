@@ -4,10 +4,7 @@ import com.psoft.ajude.dtos.DTOCampanha;
 import com.psoft.ajude.dtos.DTOComentario;
 import com.psoft.ajude.dtos.DTODoacao;
 import com.psoft.ajude.dtos.DTOPesquisa;
-import com.psoft.ajude.entidades.Campanha;
-import com.psoft.ajude.entidades.Doacao;
-import com.psoft.ajude.entidades.MetodoComparacaoCampanha;
-import com.psoft.ajude.entidades.Usuario;
+import com.psoft.ajude.entidades.*;
 import com.psoft.ajude.servicos.ServicoCampanha;
 import com.psoft.ajude.servicos.ServicoJWT;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +45,9 @@ public class ControladorCampanha {
         return new ResponseEntity<>(servicoCampanha.toggleLike(urlCampanha, servicoJWT.getUsuario(token)), HttpStatus.OK);
     }
 
-    @PostMapping("/comentario")
-    public ResponseEntity<DTOComentario> adicionaComentario(@RequestBody DTOComentario dtoComentario, @RequestHeader("Authorization") String token) throws ServletException {
-        return new ResponseEntity<>(servicoCampanha.adicionaComentario(dtoComentario), HttpStatus.OK);
+    @PostMapping("/{urlCampanha}/comentario")
+    public ResponseEntity<List<Comentario>> adicionaComentario(@RequestBody DTOComentario dtoComentario, @PathVariable String urlCampanha, @RequestHeader("Authorization") String token) throws ServletException {
+        return new ResponseEntity<>(servicoCampanha.adicionaComentario(dtoComentario, urlCampanha, servicoJWT.getUsuario(token)), HttpStatus.OK);
     }
 
     @PostMapping("/{urlCampanha}/doacoes")

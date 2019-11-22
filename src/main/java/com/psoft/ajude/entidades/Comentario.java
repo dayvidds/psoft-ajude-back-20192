@@ -1,14 +1,14 @@
 package com.psoft.ajude.entidades;
 
 
-import com.psoft.ajude.dtos.DTOUsuario;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comentario {
 
     @Id
@@ -16,13 +16,14 @@ public class Comentario {
     private Integer id;
     private String conteudo;
     @OneToOne
-    private Comentario resposta;
+    private Comentario comentarioRespondido;
     @OneToOne
     private Usuario donoComentario;
 
-    public Comentario(Usuario donoComentario, String conteudo) {
+    public Comentario(String conteudo, Usuario donoComentario, Comentario comentarioRespondido) {
+        this.comentarioRespondido = comentarioRespondido;
+        this.conteudo = conteudo;
         this.donoComentario = donoComentario;
-
     }
 
     public Integer getId() {
@@ -37,12 +38,12 @@ public class Comentario {
         this.conteudo = conteudo;
     }
 
-    public Comentario getResposta() {
-        return resposta;
+    public Comentario getComentarioRespondido() {
+        return comentarioRespondido;
     }
 
-    public void setResposta(Comentario resposta) {
-        this.resposta = resposta;
+    public void setComentarioRespondido(Comentario comentarioRespondido) {
+        this.comentarioRespondido = comentarioRespondido;
     }
 
     public Usuario getDonoComentario() {

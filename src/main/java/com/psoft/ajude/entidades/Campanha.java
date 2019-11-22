@@ -184,4 +184,8 @@ public class Campanha {
     public boolean isAtiva() {
         return getStatusCampanha().equals(StatusCampanha.ATIVA);
     }
+
+    public void removerComentario(Comentario comentarioPai) {
+        getComentarios().remove(comentarioPai);
+    }
 }
