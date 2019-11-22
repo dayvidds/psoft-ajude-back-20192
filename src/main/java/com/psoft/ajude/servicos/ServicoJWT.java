@@ -19,11 +19,11 @@ public class ServicoJWT {
     @Autowired
     private ServicoUsuario servicoUsuario;
 
-    public boolean usuarioCadastrado(String authorizationHeader, String email) throws ServletException {
+    public boolean usuarioCadastrado(String authorizationHeader) throws ServletException {
         String subject = getSujeitoDoToken(authorizationHeader);
 
         Optional<Usuario> optionalUsuario = servicoUsuario.getUsuario(subject);
-        return optionalUsuario.isPresent() && optionalUsuario.get().getEmail().equals(email);
+        return optionalUsuario.isPresent();
     }
 
     public String getSujeitoDoToken(String authorizationHeader) throws ServletException {
