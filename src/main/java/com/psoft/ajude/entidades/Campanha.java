@@ -147,8 +147,9 @@ public class Campanha {
         this.comentarios.add(comentario);
     }
 
-    public void adicionarLike(Usuario usuario) {
-        this.likesUsuarios.add(usuario);
+    public void toggleLike(Usuario usuario) {
+        if (this.likesUsuarios.contains(usuario)) this.likesUsuarios.remove(usuario);
+        else this.likesUsuarios.add(usuario);
     }
 
     @Override

@@ -62,6 +62,12 @@ public class ServicoCampanha {
         }
         return optionalCampanha.get();
     }
+  
+    public Set<Usuario> toggleLike(String urlCampanha, Usuario usuario) {
+        Campanha campanha = campanhaDAO.findById(urlCampanha).get();
+        campanha.toggleLike(usuario);
+        return campanhaDAO.save(campanha).getLikesUsuarios();
+    }
 
     public List<Campanha> retornaCampanhas(MetodoComparacaoCampanha metodoComparacaoCampanha) {
         return campanhaDAO.findAll().stream()
