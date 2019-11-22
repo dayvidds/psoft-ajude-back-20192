@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface RepositorioCampanha<T, ID extends Serializable> extends JpaRepository<Campanha, String> {
     List<Campanha> findByNomeCurtoIgnoreCaseContaining(String parametro);
-    Campanha findByIdContaining(String url);
 }
