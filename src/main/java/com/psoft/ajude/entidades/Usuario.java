@@ -1,5 +1,6 @@
 package com.psoft.ajude.entidades;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +16,9 @@ public class Usuario {
     private String email;
     private String primeiroNome;
     private String ultimoNome;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String numeroDoCartao;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     public String getEmail() {

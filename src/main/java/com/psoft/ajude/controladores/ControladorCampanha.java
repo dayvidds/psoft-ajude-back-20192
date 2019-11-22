@@ -1,9 +1,11 @@
 package com.psoft.ajude.controladores;
 
 import com.psoft.ajude.dtos.DTOCampanha;
+import com.psoft.ajude.dtos.DTODoacao;
 import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.entidades.Campanha;
 import com.psoft.ajude.entidades.MetodoComparacaoCampanha;
+import com.psoft.ajude.entidades.Doacao;
 import com.psoft.ajude.entidades.Usuario;
 import com.psoft.ajude.servicos.ServicoCampanha;
 import com.psoft.ajude.servicos.ServicoJWT;
@@ -45,9 +47,13 @@ public class ControladorCampanha {
         return new ResponseEntity<>(servicoCampanha.toggleLike(urlCampanha, servicoJWT.getUsuario(token)), HttpStatus.OK);
     }
 
+    @PostMapping("/{urlCampanha}/doacoes")
+    public ResponseEntity<List<Doacao>> adicionaDoacao(@PathVariable String urlCampanha, @RequestBody DTODoacao dtoDoacao, @RequestHeader("Authorization") String token) throws ServletException {
+        return new ResponseEntity<>(servicoCampanha.adicionaDoacao(urlCampanha, dtoDoacao, servicoJWT.getUsuario(token)), HttpStatus.OK);
+    }
+
     @GetMapping()
     public ResponseEntity<List<Campanha>> retornaCampanhas(@RequestHeader("Metodo") MetodoComparacaoCampanha metodoComparacaoCampanha) {
         return new ResponseEntity<>(servicoCampanha.retornaCampanhas(metodoComparacaoCampanha), HttpStatus.OK);
     }
-
 }
