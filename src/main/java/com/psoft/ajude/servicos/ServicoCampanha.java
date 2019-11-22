@@ -53,7 +53,7 @@ public class ServicoCampanha {
         }
         return optionalCampanha.get();
     }
-
+  
     public DTOComentario adicionaComentario(DTOComentario dtoComentario) {
         Usuario usuario = usuariosDAO.findByIdContaining(dtoComentario.getDonoComentario().getEmail());
         Comentario comentario = new Comentario(usuario, dtoComentario.getConteudo());
