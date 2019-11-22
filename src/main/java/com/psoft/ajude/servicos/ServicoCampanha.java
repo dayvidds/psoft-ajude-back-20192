@@ -1,20 +1,17 @@
 package com.psoft.ajude.servicos;
 
+import com.psoft.ajude.comparadores.CampanhaDeadlineComparator;
+import com.psoft.ajude.comparadores.CampanhaMetaComparator;
 import com.psoft.ajude.daos.RepositorioCampanha;
+import com.psoft.ajude.daos.RepositorioDoacao;
 import com.psoft.ajude.daos.RepositorioUsuario;
-import com.psoft.ajude.dtos.DTOCampanha;
-import com.psoft.ajude.dtos.DTOComentario;
-import com.psoft.ajude.dtos.DTOPesquisa;
-import com.psoft.ajude.dtos.DTOUsuario;
-import com.psoft.ajude.entidades.Campanha;
-import com.psoft.ajude.entidades.Comentario;
-import com.psoft.ajude.entidades.Usuario;
+import com.psoft.ajude.dtos.*;
+import com.psoft.ajude.entidades.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +21,17 @@ public class ServicoCampanha {
     private RepositorioCampanha<Campanha, Integer> campanhaDAO;
     @Autowired
     private RepositorioUsuario<Usuario, String> usuariosDAO;
+    @Autowired
+    private RepositorioDoacao<Doacao, Integer> doacoesDAO;
+    private Map<MetodoComparacaoCampanha, Comparator<Campanha>> metodosComparacao;
+
+    public ServicoCampanha() {
+        this.metodosComparacao = new HashMap<>();
+
+        metodosComparacao.put(MetodoComparacaoCampanha.META, new CampanhaMetaComparator());
+        metodosComparacao.put(MetodoComparacaoCampanha.DEADLINE, new CampanhaDeadlineComparator());
+        metodosComparacao.put(MetodoComparacaoCampanha.LIKES, new CampanhaMetaComparator());
+    }
 
     public DTOCampanha cadastrarCampanha(DTOCampanha dtoCampanha, String emailDono) {
         Usuario usuario = this.usuariosDAO.findByEmail(emailDono).get();
@@ -53,18 +61,39 @@ public class ServicoCampanha {
         }
         return optionalCampanha.get();
     }
-  
+
     public DTOComentario adicionaComentario(DTOComentario dtoComentario) {
         Usuario usuario = usuariosDAO.findById(dtoComentario.getDonoComentario().getEmail()).get();
         Comentario comentario = new Comentario(usuario, dtoComentario.getConteudo());
         Campanha campanha = campanhaDAO.findById(dtoComentario.getIdCampanha()).get();
 
-        if (dtoComentario.getIdComentarioPai() == 0){
+        if (dtoComentario.getIdComentarioPai() == 0) {
             campanha.adicionarComentario(comentario);
         } else {
             campanha.getComentarios().get(dtoComentario.getIdComentarioPai()).setResposta(comentario);
         }
         dtoComentario.setIdComentario(comentario.getId());
         return dtoComentario;
+    }
+
+    public Set<Usuario> toggleLike(String urlCampanha, Usuario usuario) {
+        Campanha campanha = campanhaDAO.findById(urlCampanha).get();
+        campanha.toggleLike(usuario);
+        return campanhaDAO.save(campanha).getLikesUsuarios();
+    }
+
+    public List<Campanha> retornaCampanhas(MetodoComparacaoCampanha metodoComparacaoCampanha) {
+        return campanhaDAO.findAll().stream()
+                .filter(c -> c.isAtiva())
+                .sorted(this.metodosComparacao.get(metodoComparacaoCampanha))
+                .collect(Collectors.toList());
+    }
+
+    public List<Doacao> adicionaDoacao(String urlCampanha, DTODoacao dtoDoacao, Usuario usuario) {
+        Campanha campanha = campanhaDAO.findById(urlCampanha).get();
+        Doacao doacao = new Doacao(dtoDoacao, usuario);
+        doacoesDAO.save(doacao);
+        campanha.adicionarDoacao(doacao);
+        return campanhaDAO.save(campanha).getDoacoes();
     }
 }
