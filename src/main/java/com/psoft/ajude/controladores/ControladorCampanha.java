@@ -39,4 +39,9 @@ public class ControladorCampanha {
         return new ResponseEntity<>(servicoCampanha.retornaCampanha(urlCampanha), HttpStatus.OK);
     }
 
+    @PostMapping("/{urlCampanha}/likes")
+    public ResponseEntity<Set<Usuario>> toggleLike(@PathVariable String urlCampanha, @RequestHeader("Authorization") String token) throws ServletException {
+        return new ResponseEntity<>(servicoCampanha.toggleLike(urlCampanha, servicoJWT.getUsuario(token)), HttpStatus.OK);
+    }
+
 }

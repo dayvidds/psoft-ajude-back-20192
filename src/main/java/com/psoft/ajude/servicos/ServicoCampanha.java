@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,5 +51,11 @@ public class ServicoCampanha {
             throw new ServletException("Campanha não cadastrada");
         }
         return optionalCampanha.get();
+    }
+
+    public Set<Usuario> toggleLike(String urlCampanha, Usuario usuario) {
+        Campanha campanha = campanhaDAO.findById(urlCampanha).get();
+        campanha.toggleLike(usuario);
+        return campanhaDAO.save(campanha).getLikesUsuarios();
     }
 }
