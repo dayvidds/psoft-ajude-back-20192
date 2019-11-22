@@ -5,14 +5,8 @@ import com.psoft.ajude.comparadores.CampanhaMetaComparator;
 import com.psoft.ajude.daos.RepositorioCampanha;
 import com.psoft.ajude.daos.RepositorioDoacao;
 import com.psoft.ajude.daos.RepositorioUsuario;
-import com.psoft.ajude.dtos.DTOCampanha;
-import com.psoft.ajude.dtos.DTODoacao;
-import com.psoft.ajude.dtos.DTOPesquisa;
-import com.psoft.ajude.dtos.DTOUsuario;
-import com.psoft.ajude.entidades.Campanha;
-import com.psoft.ajude.entidades.MetodoComparacaoCampanha;
-import com.psoft.ajude.entidades.Doacao;
-import com.psoft.ajude.entidades.Usuario;
+import com.psoft.ajude.dtos.*;
+import com.psoft.ajude.entidades.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +61,21 @@ public class ServicoCampanha {
         }
         return optionalCampanha.get();
     }
-  
+
+    public DTOComentario adicionaComentario(DTOComentario dtoComentario) {
+        Usuario usuario = usuariosDAO.findById(dtoComentario.getDonoComentario().getEmail()).get();
+        Comentario comentario = new Comentario(usuario, dtoComentario.getConteudo());
+        Campanha campanha = campanhaDAO.findById(dtoComentario.getIdCampanha()).get();
+
+        if (dtoComentario.getIdComentarioPai() == 0) {
+            campanha.adicionarComentario(comentario);
+        } else {
+            campanha.getComentarios().get(dtoComentario.getIdComentarioPai()).setResposta(comentario);
+        }
+        dtoComentario.setIdComentario(comentario.getId());
+        return dtoComentario;
+    }
+
     public Set<Usuario> toggleLike(String urlCampanha, Usuario usuario) {
         Campanha campanha = campanhaDAO.findById(urlCampanha).get();
         campanha.toggleLike(usuario);
