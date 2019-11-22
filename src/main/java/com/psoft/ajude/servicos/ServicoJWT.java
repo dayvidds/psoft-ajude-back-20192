@@ -26,6 +26,16 @@ public class ServicoJWT {
         return optionalUsuario.isPresent();
     }
 
+    public Usuario getUsuario(String authorizationHeader) throws ServletException {
+        String email = getSujeitoDoToken(authorizationHeader);
+
+        Optional<Usuario> optionalUsuario = servicoUsuario.getUsuario(email);
+
+        if (!optionalUsuario.isPresent()) throw new ServletException("Usuario invalido");
+
+        return optionalUsuario.get();
+    }
+
     public String getSujeitoDoToken(String authorizationHeader) throws ServletException {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             throw new ServletException("Token inexistente ou mal formatado!");
