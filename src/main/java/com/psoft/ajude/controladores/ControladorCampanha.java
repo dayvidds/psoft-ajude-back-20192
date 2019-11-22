@@ -37,4 +37,9 @@ public class ControladorCampanha {
         return new ResponseEntity(servicoCampanha.retornaCampanha(urlCampanha), HttpStatus.OK);
     }
 
+    @GetMapping()
+    public ResponseEntity<List<Campanha>> retornaCampanhas() {
+        return new ResponseEntity<>(servicoCampanha.retornaCampanhas(), HttpStatus.OK);
+    }
+
 }

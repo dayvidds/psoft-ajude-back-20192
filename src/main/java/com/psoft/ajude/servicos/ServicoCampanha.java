@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,5 +51,12 @@ public class ServicoCampanha {
             throw new ServletException("Campanha não cadastrada");
         }
         return optionalCampanha.get();
+    }
+
+    public List<Campanha> retornaCampanhas() {
+        return campanhaDAO.findAll().stream()
+                .filter(c -> c.isAtiva())
+                .sorted(Comparator.comparingDouble(Campanha::getQuantiaFaltante))
+                .collect(Collectors.toList());
     }
 }
