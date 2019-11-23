@@ -1,13 +1,11 @@
 package com.psoft.ajude.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.psoft.ajude.dtos.DTODoacao;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -18,12 +16,17 @@ public class Doacao {
     @Id
     @GeneratedValue
     private Integer id;
+    @OneToOne
+    @JoinColumn(name = "idCampanha")
+    @JsonIgnore
+    private Campanha campanha;
     private Double quantiaDoada;
     private Date dataDoacao;
     @OneToOne
     private Usuario doador;
 
-    public Doacao(DTODoacao dtoDoacao, Usuario usuario) {
+    public Doacao(Campanha campanha, DTODoacao dtoDoacao, Usuario usuario) {
+        this.campanha = campanha;
         this.quantiaDoada = dtoDoacao.getQuantiaDoada();
         this.dataDoacao = dtoDoacao.getDataDoacao();
         this.doador = usuario;
@@ -31,6 +34,10 @@ public class Doacao {
 
     public Integer getId() {
         return id;
+    }
+
+    public Campanha getCampanha() {
+        return campanha;
     }
 
     public Double getQuantiaDoada() {

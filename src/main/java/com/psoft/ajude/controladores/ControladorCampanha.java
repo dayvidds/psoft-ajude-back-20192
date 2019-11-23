@@ -1,9 +1,6 @@
 package com.psoft.ajude.controladores;
 
-import com.psoft.ajude.dtos.DTOCampanha;
-import com.psoft.ajude.dtos.DTOComentario;
-import com.psoft.ajude.dtos.DTODoacao;
-import com.psoft.ajude.dtos.DTOPesquisa;
+import com.psoft.ajude.dtos.*;
 import com.psoft.ajude.entidades.*;
 import com.psoft.ajude.servicos.ServicoCampanha;
 import com.psoft.ajude.servicos.ServicoJWT;

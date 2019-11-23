@@ -66,10 +66,10 @@ public class ServicoCampanha {
     }
 
     public List<Comentario> adicionaComentario(DTOComentario dtoComentario, String urlCampanha, Usuario usuario) {
-        Comentario comentarioPai = dtoComentario.getIdComentarioPai() == -1 ? null : comentarioDAO.findById(dtoComentario.getIdComentarioPai()).get();
+        Comentario comentarioPai = dtoComentario.getIdComentarioPai() == 0 ? null : comentarioDAO.findById(dtoComentario.getIdComentarioPai()).get();
 
-        Comentario comentario = new Comentario(dtoComentario.getConteudo(), usuario);
         Campanha campanha = campanhaDAO.findById(urlCampanha).get();
+        Comentario comentario = new Comentario(campanha, dtoComentario.getConteudo(), usuario);
 
         comentarioDAO.save(comentario);
 
@@ -98,7 +98,7 @@ public class ServicoCampanha {
 
     public List<Doacao> adicionaDoacao(String urlCampanha, DTODoacao dtoDoacao, Usuario usuario) {
         Campanha campanha = campanhaDAO.findById(urlCampanha).get();
-        Doacao doacao = new Doacao(dtoDoacao, usuario);
+        Doacao doacao = new Doacao(campanha, dtoDoacao, usuario);
         doacoesDAO.save(doacao);
         campanha.adicionarDoacao(doacao);
         return campanhaDAO.save(campanha).getDoacoes();

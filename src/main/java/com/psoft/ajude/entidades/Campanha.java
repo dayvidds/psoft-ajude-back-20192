@@ -4,10 +4,7 @@ import com.psoft.ajude.util.Util;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,9 +22,9 @@ public class Campanha {
     @ManyToOne
     private Usuario usuarioDono;
     private boolean isEncerrada;
-    @OneToMany
+    @OneToMany(mappedBy = "campanha")
     private List<Doacao> doacoes;
-    @OneToMany
+    @OneToMany(mappedBy = "campanha")
     private List<Comentario> comentarios;
     @OneToMany
     private Set<Usuario> likesUsuarios;
