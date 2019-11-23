@@ -1,11 +1,17 @@
 package com.psoft.ajude.servicos;
 
+import com.psoft.ajude.daos.RepositorioCampanha;
+import com.psoft.ajude.daos.RepositorioDoacao;
 import com.psoft.ajude.daos.RepositorioUsuario;
+import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.dtos.DTOUsuario;
+import com.psoft.ajude.entidades.Campanha;
+import com.psoft.ajude.entidades.Doacao;
 import com.psoft.ajude.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,6 +19,13 @@ public class ServicoUsuario {
 
     @Autowired
     private RepositorioUsuario<Usuario, String> usuariosDAO;
+
+    @Autowired
+    private RepositorioCampanha<Campanha, String> campanhasDAO;
+
+    @Autowired
+    private RepositorioDoacao<Doacao, Integer> doacaoDAO;
+
     @Autowired
     private ServicoEmail emailService;
 
@@ -32,5 +45,13 @@ public class ServicoUsuario {
 
     public Optional<Usuario> getUsuario(String email) {
         return this.usuariosDAO.findByEmail(email);
+    }
+
+    public DTOUsuario pegaUsuario(String userName) {
+        Usuario usuario = this.usuariosDAO.findByUserName(userName).get();
+        List<Doacao> campanhasDoacao = this.doacaoDAO.findByDoador(usuario);
+        List<Campanha> campanhasDono = this.campanhasDAO.findByUsuarioDono(usuario);
+
+        return new DTOUsuario(usuario, campanhasDoacao, campanhasDono);
     }
 }
