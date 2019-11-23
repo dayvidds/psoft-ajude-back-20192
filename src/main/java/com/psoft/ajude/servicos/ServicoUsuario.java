@@ -44,11 +44,11 @@ public class ServicoUsuario {
 
 
     public Optional<Usuario> getUsuario(String email) {
-        return this.usuariosDAO.findByEmail(email);
+        return this.usuariosDAO.findById(email);
     }
 
-    public DTOUsuarioPerfil pegaUsuario(String userName) {
-        Usuario usuario = this.usuariosDAO.findByUserName(userName).get();
+    public DTOUsuarioPerfil pegaUsuario(String email) {
+        Usuario usuario = this.usuariosDAO.findById(email).get();
         List<Doacao> campanhasDoacao = this.doacaoDAO.findByDoador(usuario);
         List<Campanha> campanhasDono = this.campanhasDAO.findByUsuarioDono(usuario);
 
