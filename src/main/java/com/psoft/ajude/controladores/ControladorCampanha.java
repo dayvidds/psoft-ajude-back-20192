@@ -47,6 +47,11 @@ public class ControladorCampanha {
         return new ResponseEntity<>(servicoCampanha.adicionaComentario(dtoComentario, urlCampanha, servicoJWT.getUsuario(token)), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{urlCampanha}/comentario")
+    public ResponseEntity<List<Comentario>> removeComentario(@RequestBody DTOComentarioDelete dtoComentario, @PathVariable String urlCampanha, @RequestHeader("Authorization") String token) throws ServletException {
+        return new ResponseEntity<>(servicoCampanha.removeComentario(dtoComentario.getId(), urlCampanha, servicoJWT.getUsuario(token)), HttpStatus.OK);
+    }
+
     @PostMapping("/{urlCampanha}/doacoes")
     public ResponseEntity<List<Doacao>> adicionaDoacao(@PathVariable String urlCampanha, @RequestBody DTODoacao dtoDoacao, @RequestHeader("Authorization") String token) throws ServletException {
         return new ResponseEntity<>(servicoCampanha.adicionaDoacao(urlCampanha, dtoDoacao, servicoJWT.getUsuario(token)), HttpStatus.OK);
