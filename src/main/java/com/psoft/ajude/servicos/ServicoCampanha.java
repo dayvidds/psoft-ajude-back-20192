@@ -3,6 +3,7 @@ package com.psoft.ajude.servicos;
 import com.psoft.ajude.comparadores.CampanhaDeadlineComparator;
 import com.psoft.ajude.comparadores.CampanhaMetaComparator;
 import com.psoft.ajude.daos.RepositorioCampanha;
+import com.psoft.ajude.daos.RepositorioComentario;
 import com.psoft.ajude.daos.RepositorioDoacao;
 import com.psoft.ajude.daos.RepositorioUsuario;
 import com.psoft.ajude.dtos.*;
@@ -23,6 +24,8 @@ public class ServicoCampanha {
     private RepositorioUsuario<Usuario, String> usuariosDAO;
     @Autowired
     private RepositorioDoacao<Doacao, Integer> doacoesDAO;
+    @Autowired
+    private RepositorioComentario<Comentario, Integer> comentarioDAO;
     private Map<MetodoComparacaoCampanha, Comparator<Campanha>> metodosComparacao;
 
     public ServicoCampanha() {
@@ -62,18 +65,22 @@ public class ServicoCampanha {
         return optionalCampanha.get();
     }
 
-    public DTOComentario adicionaComentario(DTOComentario dtoComentario) {
-        Usuario usuario = usuariosDAO.findById(dtoComentario.getDonoComentario().getEmail()).get();
-        Comentario comentario = new Comentario(usuario, dtoComentario.getConteudo());
-        Campanha campanha = campanhaDAO.findById(dtoComentario.getIdCampanha()).get();
+    public List<Comentario> adicionaComentario(DTOComentario dtoComentario, String urlCampanha, Usuario usuario) {
+        Comentario comentarioPai = dtoComentario.getIdComentarioPai() == -1 ? null : comentarioDAO.findById(dtoComentario.getIdComentarioPai()).get();
 
-        if (dtoComentario.getIdComentarioPai() == 0) {
-            campanha.adicionarComentario(comentario);
+        Comentario comentario = new Comentario(dtoComentario.getConteudo(), usuario);
+        Campanha campanha = campanhaDAO.findById(urlCampanha).get();
+
+        comentarioDAO.save(comentario);
+
+        if (comentarioPai != null) {
+            comentarioPai.adicionarResposta(comentario);
+            comentarioDAO.save(comentarioPai);
         } else {
-            campanha.getComentarios().get(dtoComentario.getIdComentarioPai()).setResposta(comentario);
+            campanha.adicionarComentario(comentario);
         }
-        dtoComentario.setIdComentario(comentario.getId());
-        return dtoComentario;
+
+        return campanhaDAO.save(campanha).getComentarios();
     }
 
     public Set<Usuario> toggleLike(String urlCampanha, Usuario usuario) {

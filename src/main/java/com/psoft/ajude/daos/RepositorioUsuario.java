@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface RepositorioUsuario<T, ID extends Serializable> extends JpaRepository<Usuario, String> {
 
-    Optional<T> findByEmail(String email);
+   Optional<T> findByEmail(String email);
 }

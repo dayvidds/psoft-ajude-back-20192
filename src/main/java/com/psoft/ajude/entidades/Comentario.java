@@ -1,28 +1,31 @@
 package com.psoft.ajude.entidades;
 
 
-import com.psoft.ajude.dtos.DTOUsuario;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comentario {
 
     @Id
     @GeneratedValue
     private Integer id;
     private String conteudo;
-    @OneToOne
-    private Comentario resposta;
+    @OneToMany
+    private List<Comentario> respostas;
     @OneToOne
     private Usuario donoComentario;
 
-    public Comentario(Usuario donoComentario, String conteudo) {
+    public Comentario(String conteudo, Usuario donoComentario) {
+        this.respostas = new ArrayList<>();
+        this.conteudo = conteudo;
         this.donoComentario = donoComentario;
-
     }
 
     public Integer getId() {
@@ -37,12 +40,12 @@ public class Comentario {
         this.conteudo = conteudo;
     }
 
-    public Comentario getResposta() {
-        return resposta;
+    public List<Comentario> getRespostas() {
+        return respostas;
     }
 
-    public void setResposta(Comentario resposta) {
-        this.resposta = resposta;
+    public void adicionarResposta(Comentario resposta) {
+        this.respostas.add(resposta);
     }
 
     public Usuario getDonoComentario() {
