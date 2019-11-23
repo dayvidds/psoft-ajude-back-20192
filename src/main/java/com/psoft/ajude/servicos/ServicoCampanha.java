@@ -37,7 +37,7 @@ public class ServicoCampanha {
     }
 
     public DTOCampanha cadastrarCampanha(DTOCampanha dtoCampanha, String emailDono) {
-        Usuario usuario = this.usuariosDAO.findByEmail(emailDono).get();
+        Usuario usuario = this.usuariosDAO.findById(emailDono).get();
         Campanha campanha = new Campanha(
                 dtoCampanha.getNomeCurto(),
                 dtoCampanha.getDescricao(),

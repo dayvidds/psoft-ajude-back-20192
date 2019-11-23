@@ -20,11 +20,6 @@ public class Usuario {
     private String numeroDoCartao;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
-    private String userName;
-
-    public String getUserName() {
-        return userName;
-    }
 
     public String getEmail() {
         return email;

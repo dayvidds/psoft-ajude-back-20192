@@ -20,8 +20,8 @@ public class ControladorUsuarios {
     public ResponseEntity<DTOUsuario> cadastraUsuario(@RequestBody Usuario usuario) {
         return new ResponseEntity<>(servicoUsuario.cadastraUsuario(usuario), HttpStatus.CREATED);
     }
-    @GetMapping("/{userName}")
-    public ResponseEntity<DTOUsuarioPerfil> pegaUsuario(@PathVariable String userName){
-        return new ResponseEntity<>(servicoUsuario.pegaUsuario(userName), HttpStatus.OK);
+    @GetMapping("/{email}")
+    public ResponseEntity<DTOUsuarioPerfil> pegaUsuario(@PathVariable String email){
+        return new ResponseEntity<>(servicoUsuario.pegaUsuario(email), HttpStatus.OK);
     }
 }
