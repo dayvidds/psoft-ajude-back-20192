@@ -3,8 +3,8 @@ package com.psoft.ajude.servicos;
 import com.psoft.ajude.daos.RepositorioCampanha;
 import com.psoft.ajude.daos.RepositorioDoacao;
 import com.psoft.ajude.daos.RepositorioUsuario;
-import com.psoft.ajude.dtos.DTOPesquisa;
 import com.psoft.ajude.dtos.DTOUsuario;
+import com.psoft.ajude.dtos.DTOUsuarioPerfil;
 import com.psoft.ajude.entidades.Campanha;
 import com.psoft.ajude.entidades.Doacao;
 import com.psoft.ajude.entidades.Usuario;
@@ -47,11 +47,11 @@ public class ServicoUsuario {
         return this.usuariosDAO.findByEmail(email);
     }
 
-    public DTOUsuario pegaUsuario(String userName) {
+    public DTOUsuarioPerfil pegaUsuario(String userName) {
         Usuario usuario = this.usuariosDAO.findByUserName(userName).get();
         List<Doacao> campanhasDoacao = this.doacaoDAO.findByDoador(usuario);
         List<Campanha> campanhasDono = this.campanhasDAO.findByUsuarioDono(usuario);
 
-        return new DTOUsuario(usuario, campanhasDoacao, campanhasDono);
+        return new DTOUsuarioPerfil(usuario, campanhasDoacao, campanhasDono);
     }
 }
