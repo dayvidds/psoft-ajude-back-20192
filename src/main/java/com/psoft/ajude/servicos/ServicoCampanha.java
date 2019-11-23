@@ -103,4 +103,10 @@ public class ServicoCampanha {
         campanha.adicionarDoacao(doacao);
         return campanhaDAO.save(campanha).getDoacoes();
     }
+
+    public List<Comentario> removeComentario(Integer id, String urlCampanha, Usuario usuario) {
+        comentarioDAO.deleteById(id);
+
+        return campanhaDAO.findById(urlCampanha).get().getComentarios();
+    }
 }
