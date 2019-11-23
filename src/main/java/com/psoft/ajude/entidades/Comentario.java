@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -15,13 +17,13 @@ public class Comentario {
     @GeneratedValue
     private Integer id;
     private String conteudo;
-    @OneToOne
-    private Comentario comentarioRespondido;
+    @OneToMany
+    private List<Comentario> respostas;
     @OneToOne
     private Usuario donoComentario;
 
-    public Comentario(String conteudo, Usuario donoComentario, Comentario comentarioRespondido) {
-        this.comentarioRespondido = comentarioRespondido;
+    public Comentario(String conteudo, Usuario donoComentario) {
+        this.respostas = new ArrayList<>();
         this.conteudo = conteudo;
         this.donoComentario = donoComentario;
     }
@@ -38,12 +40,12 @@ public class Comentario {
         this.conteudo = conteudo;
     }
 
-    public Comentario getComentarioRespondido() {
-        return comentarioRespondido;
+    public List<Comentario> getRespostas() {
+        return respostas;
     }
 
-    public void setComentarioRespondido(Comentario comentarioRespondido) {
-        this.comentarioRespondido = comentarioRespondido;
+    public void adicionarResposta(Comentario resposta) {
+        this.respostas.add(resposta);
     }
 
     public Usuario getDonoComentario() {

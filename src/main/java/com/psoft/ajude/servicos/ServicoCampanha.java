@@ -68,16 +68,17 @@ public class ServicoCampanha {
     public List<Comentario> adicionaComentario(DTOComentario dtoComentario, String urlCampanha, Usuario usuario) {
         Comentario comentarioPai = dtoComentario.getIdComentarioPai() == -1 ? null : comentarioDAO.findById(dtoComentario.getIdComentarioPai()).get();
 
-        Comentario comentario = new Comentario(dtoComentario.getConteudo(), usuario, comentarioPai);
+        Comentario comentario = new Comentario(dtoComentario.getConteudo(), usuario);
         Campanha campanha = campanhaDAO.findById(urlCampanha).get();
 
-        campanha.adicionarComentario(comentario);
+        comentarioDAO.save(comentario);
 
         if (comentarioPai != null) {
-            campanha.removerComentario(comentarioPai);
+            comentarioPai.adicionarResposta(comentario);
+            comentarioDAO.save(comentarioPai);
+        } else {
+            campanha.adicionarComentario(comentario);
         }
-
-        comentarioDAO.save(comentario);
 
         return campanhaDAO.save(campanha).getComentarios();
     }
