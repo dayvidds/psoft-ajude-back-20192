@@ -32,7 +32,7 @@ public class ServicoEmail {
 
 
     public String getCadastroEmailCorpo() {
-        return "Seu cadastro em nossa plataforma foi realizado com sucesso!";
+        return "Seu cadastro em nossa plataforma foi realizado com sucesso! acesse: wwww.google.com.br";
     }
 
     public String getCadastroEmailSubject() {
@@ -49,7 +49,7 @@ public class ServicoEmail {
 
             message.setRecipients(Message.RecipientType.TO, toUser);
             message.setSubject(assunto);
-            message.setText(assunto);
+            message.setText(corpo);
 
             Transport.send(message);
 
