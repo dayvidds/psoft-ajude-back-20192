@@ -2,6 +2,7 @@ package com.psoft.ajude.entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.psoft.ajude.dtos.DTODoacao;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -15,14 +16,19 @@ public class Doacao {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(value = "Id da doacao.")
     private Integer id;
     @OneToOne
     @JoinColumn(name = "idCampanha")
     @JsonIgnore
+    @ApiModelProperty(value = "Campanha a qual a doacao pertence.")
     private Campanha campanha;
+    @ApiModelProperty(value = "Valor da doacao.")
     private Double quantiaDoada;
+    @ApiModelProperty(value = "Data da doacao.")
     private Date dataDoacao;
     @OneToOne
+    @ApiModelProperty(value = "Usuario que realizou a doacao.")
     private Usuario doador;
 
     public Doacao(Campanha campanha, DTODoacao dtoDoacao, Usuario usuario) {

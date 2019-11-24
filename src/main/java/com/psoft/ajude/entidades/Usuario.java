@@ -1,6 +1,7 @@
 package com.psoft.ajude.entidades;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -13,12 +14,17 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Usuario {
     @Id
+    @ApiModelProperty(value = "Email do usuario.")
     private String email;
+    @ApiModelProperty(value = "Primeiro nome do usuario.")
     private String primeiroNome;
+    @ApiModelProperty(value = "Ultimo nome do usuario.")
     private String ultimoNome;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ApiModelProperty(value = "Numero do cartao do usuario.")
     private String numeroDoCartao;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ApiModelProperty(value = "Senha do usuario.")
     private String senha;
 
     public String getEmail() {

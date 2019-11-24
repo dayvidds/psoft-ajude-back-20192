@@ -2,6 +2,7 @@ package com.psoft.ajude.entidades;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -16,16 +17,21 @@ public class Comentario {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(value = "Id do comentario.")
     private Integer id;
+    @ApiModelProperty(value = "Conteudo do comentario.")
     private String conteudo;
     @OneToOne
     @JoinColumn(name = "idCampanha")
     @JsonIgnore
+    @ApiModelProperty(value = "Campanha a qual o comentario pertence.")
     private Campanha campanha;
     @OneToMany
     @JoinColumn(name = "idComentarioRespondido")
+    @ApiModelProperty(value = "Respostas do comentario.")
     private List<Comentario> respostas;
     @OneToOne
+    @ApiModelProperty(value = "Dono do comentario.")
     private Usuario donoComentario;
 
     public Comentario(Campanha campanha, String conteudo, Usuario donoComentario) {

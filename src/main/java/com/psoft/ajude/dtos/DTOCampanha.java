@@ -2,21 +2,31 @@ package com.psoft.ajude.dtos;
 
 import com.psoft.ajude.entidades.Campanha;
 import com.psoft.ajude.entidades.StatusCampanha;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+@ApiModel(value = "DTOCampanha")
 @AllArgsConstructor
 @NoArgsConstructor
 public class DTOCampanha {
 
+    @ApiModelProperty(value = "Nome curto da campanha.")
     private String nomeCurto;
+    @ApiModelProperty(value = "Descricao da campanha.")
     private String descricao;
+    @ApiModelProperty(value = "Data que a campanha sera encerrada da campanha.")
     private Date deadline;
+    @ApiModelProperty(value = "Valor que a campanha deseja obter.")
     private Double meta;
+    @ApiModelProperty(value = "Status da campanha.")
     private StatusCampanha statusCampanha;
+    @ApiModelProperty(value = "URL da campanha.")
     private String url;
+    @ApiModelProperty(value = "Usuario dono da campanha.")
     private DTOUsuario usuarioDono;
 
     public DTOCampanha(Campanha campanha, DTOUsuario dtoUsuario) {
