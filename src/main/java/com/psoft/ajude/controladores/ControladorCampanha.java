@@ -66,7 +66,7 @@ public class ControladorCampanha {
         return new ResponseEntity<>(servicoCampanha.adicionaDoacao(urlCampanha, dtoDoacao, servicoJWT.getUsuario(token)), HttpStatus.OK);
     }
 
-    @ApiOperation(value="Retorna campanhas")
+    @ApiOperation(value="Retorna todas as campanhas")
     @GetMapping()
     public ResponseEntity<List<Campanha>> retornaCampanhas(@ApiParam(value="Metodo de comparacao da campanha") @RequestHeader("Metodo") MetodoComparacaoCampanha metodoComparacaoCampanha) {
         return new ResponseEntity<>(servicoCampanha.retornaCampanhas(metodoComparacaoCampanha), HttpStatus.OK);

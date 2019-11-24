@@ -29,7 +29,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "API AJuDE",
-                "API criada para a disciplina de Projeto de Software",
+                "API criada para a disciplina de Projeto de Software da Universidade Federal de Campina Grande - UFCG \n Professores Orientadores: Dalton Serey e Raquel Lopes \n Discentes: Dayvid Silva e Joao Espindula",
                 "1.0.4",
                 null,
                 null,
