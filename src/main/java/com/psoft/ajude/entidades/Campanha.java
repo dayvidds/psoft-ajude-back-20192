@@ -1,6 +1,7 @@
 package com.psoft.ajude.entidades;
 
 import com.psoft.ajude.util.Util;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -14,19 +15,29 @@ import java.util.stream.Collectors;
 public class Campanha {
 
     @Id
+    @ApiModelProperty(value = "Id da campanha.")
     private String id;
+    @ApiModelProperty(value = "Nome curto da campanha.")
     private String nomeCurto;
+    @ApiModelProperty(value = "descricao da campanha.")
     private String descricao;
+    @ApiModelProperty(value = "Data final da campanha.")
     private Date deadline;
+    @ApiModelProperty(value = "Valor que a campanha deseja alcançar.")
     private Double meta;
     @ManyToOne
+    @ApiModelProperty(value = "Usuario dono da campanha.")
     private Usuario usuarioDono;
+    @ApiModelProperty(value = "Define se a campanha está encerrada.")
     private boolean isEncerrada;
     @OneToMany(mappedBy = "campanha")
+    @ApiModelProperty(value = "Doacoes que a campanha recebeu.")
     private List<Doacao> doacoes;
     @OneToMany(mappedBy = "campanha")
+    @ApiModelProperty(value = "Comentarios da campanha.")
     private List<Comentario> comentarios;
     @OneToMany
+    @ApiModelProperty(value = "Curtidas que a campanha recebeu.")
     private Set<Usuario> likesUsuarios;
 
     public Campanha(String nomeCurto, String descricao, Date deadline, Double meta, Usuario usuarioDono) {

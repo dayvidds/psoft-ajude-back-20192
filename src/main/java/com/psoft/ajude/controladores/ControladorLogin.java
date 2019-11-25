@@ -3,6 +3,9 @@ package com.psoft.ajude.controladores;
 import com.psoft.ajude.entidades.Usuario;
 import com.psoft.ajude.servicos.ServicoJWT;
 import com.psoft.ajude.servicos.ServicoUsuario;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.ServletException;
 import java.util.Optional;
 
+@Api(value="Login API")
 @RestController
 @RequestMapping("/autorizacao")
 public class ControladorLogin {
@@ -23,8 +27,9 @@ public class ControladorLogin {
     private ServicoJWT servicoJwt;
 
 
+    @ApiOperation(value="Realiza o login do usuario no sistema")
     @PostMapping("/login")
-    public LoginResponse authenticate(@RequestBody Usuario usuario) throws ServletException {
+    public LoginResponse authenticate(@ApiParam(value="Usuario") @RequestBody Usuario usuario) throws ServletException {
 
         Optional<Usuario> authUsuario = servicoUsuario.getUsuario(usuario.getEmail());
 
