@@ -168,13 +168,13 @@ public class Campanha {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Campanha campanha = (Campanha) o;
-        return id == campanha.id &&
-                nomeCurto.equals(campanha.nomeCurto);
+        return this.getURL() == campanha.getURL();
     }
+
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nomeCurto);
+        return Objects.hash(this.getURL());
     }
 
     public String getURL() {

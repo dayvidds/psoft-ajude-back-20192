@@ -8,6 +8,8 @@ import com.psoft.ajude.daos.RepositorioDoacao;
 import com.psoft.ajude.daos.RepositorioUsuario;
 import com.psoft.ajude.dtos.*;
 import com.psoft.ajude.entidades.*;
+import com.psoft.ajude.excecoes.BadRequestException;
+import com.psoft.ajude.excecoes.NotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -48,6 +50,11 @@ public class ServicoCampanha {
                 dtoCampanha.getMeta(),
                 usuario
         );
+
+        if (campanhaDAO.findAll().contains(campanha)){
+            throw new BadRequestException("Campanha inexistente, escolha outro nome");
+        };
+
         this.campanhaDAO.save(campanha);
 
         return new DTOCampanha(campanha, new DTOUsuario(usuario));
@@ -59,11 +66,11 @@ public class ServicoCampanha {
                 .collect(Collectors.toList());
     }
 
-    public Campanha retornaCampanha(String urlCampanha) throws ServletException {
+    public Campanha retornaCampanha(String urlCampanha){
         Optional<Campanha> optionalCampanha = campanhaDAO.findById(urlCampanha);
 
         if (!optionalCampanha.isPresent()) {
-            throw new ServletException("Campanha não cadastrada");
+            throw new NotFoundException("Campanha nao cadastrada");
         }
         return optionalCampanha.get();
     }
