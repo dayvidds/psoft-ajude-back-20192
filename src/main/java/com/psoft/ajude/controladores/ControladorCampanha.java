@@ -33,12 +33,14 @@ public class ControladorCampanha {
     @ApiOperation(value="Pesquisa campanhas no sistema")
     @PostMapping("/pesquisa")
     public ResponseEntity<List<Campanha>> pesquisaCampanha(@ApiParam(value="DTO da pesquisa")@RequestBody DTOPesquisa dtoPesquisa, @ApiParam(value="Token do usuario") @RequestHeader("Authorization") String token) throws ServletException {
+        this.servicoJWT.getSujeitoDoToken(token);
         return new ResponseEntity<>(servicoCampanha.pesquisarCampanha(dtoPesquisa), HttpStatus.OK);
     }
 
     @ApiOperation(value="Pesquisa uma campanha no sistema")
     @GetMapping("/{urlCampanha}")
     public ResponseEntity<Campanha> retornaCampanha(@ApiParam(value="URL da campanha") @PathVariable String urlCampanha, @ApiParam(value="Token do usuario") @RequestHeader("Authorization") String token) throws ServletException {
+        this.servicoJWT.getSujeitoDoToken(token);
         return new ResponseEntity<>(servicoCampanha.retornaCampanha(urlCampanha), HttpStatus.OK);
     }
 
@@ -51,7 +53,7 @@ public class ControladorCampanha {
     @ApiOperation(value="Adiciona um comentario em uma campanha do sistema")
     @PostMapping("/{urlCampanha}/comentario")
     public ResponseEntity<List<Comentario>> adicionaComentario(@ApiParam(value="DTO do comentario") @RequestBody DTOComentario dtoComentario, @ApiParam(value="URL da campanha") @PathVariable String urlCampanha, @ApiParam(value="Token do usuario") @RequestHeader("Authorization") String token) throws ServletException {
-        return new ResponseEntity<>(servicoCampanha.adicionaComentario(dtoComentario, urlCampanha, servicoJWT.getUsuario(token)), HttpStatus.OK);
+        return new ResponseEntity<>(servicoCampanha.adicionaComentario(dtoComentario, urlCampanha, servicoJWT.getUsuario(token)), HttpStatus.CREATED);
     }
 
     @ApiOperation(value="Remove um comentario em uma campanha do sistema")
@@ -63,7 +65,7 @@ public class ControladorCampanha {
     @ApiOperation(value="Realiza doação em uma campanha do sistema")
     @PostMapping("/{urlCampanha}/doacoes")
     public ResponseEntity<List<Doacao>> adicionaDoacao(@ApiParam(value="URL da campanha") @PathVariable String urlCampanha, @ApiParam(value="DTO da dacao") @RequestBody DTODoacao dtoDoacao, @ApiParam(value="Token do usuario") @RequestHeader("Authorization") String token) throws ServletException {
-        return new ResponseEntity<>(servicoCampanha.adicionaDoacao(urlCampanha, dtoDoacao, servicoJWT.getUsuario(token)), HttpStatus.OK);
+        return new ResponseEntity<>(servicoCampanha.adicionaDoacao(urlCampanha, dtoDoacao, servicoJWT.getUsuario(token)), HttpStatus.CREATED);
     }
 
     @ApiOperation(value="Retorna todas as campanhas")

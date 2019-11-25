@@ -1,18 +1,17 @@
 package com.psoft.ajude.controladores;
 
 import com.psoft.ajude.entidades.Usuario;
+import com.psoft.ajude.excecoes.BadRequestException;
+import com.psoft.ajude.excecoes.NotFoundException;
 import com.psoft.ajude.servicos.ServicoJWT;
 import com.psoft.ajude.servicos.ServicoUsuario;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
 import java.util.Optional;
 
 @Api(value="Login API")
@@ -27,14 +26,18 @@ public class ControladorLogin {
     private ServicoJWT servicoJwt;
 
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Autenticacao invalida"),
+            @ApiResponse(code = 200, message = "Login realizado com sucesso"),
+            @ApiResponse(code = 404, message = "Usuario nao esta cadastrado") })
     @ApiOperation(value="Realiza o login do usuario no sistema")
     @PostMapping("/login")
-    public LoginResponse authenticate(@ApiParam(value="Usuario") @RequestBody Usuario usuario) throws ServletException {
+    public LoginResponse authenticate(@ApiParam(value="Usuario") @RequestBody Usuario usuario){
 
         Optional<Usuario> authUsuario = servicoUsuario.getUsuario(usuario.getEmail());
 
         if (!authUsuario.isPresent()) {
-            throw new ServletException("Usuario nao encontrado!");
+            throw new NotFoundException("Usuario nao encontrado!");
         }
 
         verificaSenha(usuario, authUsuario);
@@ -45,9 +48,9 @@ public class ControladorLogin {
 
     }
 
-    private void verificaSenha(Usuario usuario, Optional<Usuario> authUsuario) throws ServletException {
+    private void verificaSenha(Usuario usuario, Optional<Usuario> authUsuario) {
         if (!authUsuario.get().getSenha().equals(usuario.getSenha())) {
-            throw new ServletException("Senha invalida!");
+            throw new BadRequestException("Senha invalida!");
         }
     }
 

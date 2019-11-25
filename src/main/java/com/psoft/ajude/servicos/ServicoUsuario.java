@@ -8,6 +8,7 @@ import com.psoft.ajude.dtos.DTOUsuarioPerfil;
 import com.psoft.ajude.entidades.Campanha;
 import com.psoft.ajude.entidades.Doacao;
 import com.psoft.ajude.entidades.Usuario;
+import com.psoft.ajude.excecoes.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,10 @@ public class ServicoUsuario {
     }
 
     public DTOUsuario cadastraUsuario(Usuario usuario) {
+        if (usuarioCadastrado(usuario.getEmail())) {
+            throw new BadRequestException("Usuario já cadastrado");
+        }
+
         Usuario usuarioSalvo = usuariosDAO.save(usuario);
 
         emailService.mandarEmail(usuarioSalvo.getEmail(), emailService.getCadastroEmailCorpo(), emailService.getCadastroEmailSubject());
@@ -42,12 +47,22 @@ public class ServicoUsuario {
         return new DTOUsuario(usuario);
     }
 
-
     public Optional<Usuario> getUsuario(String email) {
+        if (!usuarioCadastrado(email)) {
+            throw new BadRequestException("Usuario nao cadastrado");
+        }
         return this.usuariosDAO.findById(email);
     }
 
+    private boolean usuarioCadastrado(String email) {
+        return this.usuariosDAO.findById(email).isPresent();
+    }
+
     public DTOUsuarioPerfil pegaUsuario(String email) {
+        if (!this.usuarioCadastrado(email)) {
+            throw new BadRequestException("Usuario nao cadastrado");
+        }
+
         Usuario usuario = this.usuariosDAO.findById(email).get();
         List<Doacao> campanhasDoacao = this.doacaoDAO.findByDoador(usuario);
         List<Campanha> campanhasDono = this.campanhasDAO.findByUsuarioDono(usuario);

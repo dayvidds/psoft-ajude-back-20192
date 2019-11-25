@@ -68,15 +68,11 @@ public class Usuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(email, usuario.email) &&
-                Objects.equals(primeiroNome, usuario.primeiroNome) &&
-                Objects.equals(ultimoNome, usuario.ultimoNome) &&
-                Objects.equals(numeroDoCartao, usuario.numeroDoCartao) &&
-                Objects.equals(senha, usuario.senha);
+        return Objects.equals(email, usuario.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, primeiroNome, ultimoNome, numeroDoCartao, senha);
+        return Objects.hash(email);
     }
 }

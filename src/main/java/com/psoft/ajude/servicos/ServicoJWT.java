@@ -1,6 +1,9 @@
 package com.psoft.ajude.servicos;
 
 import com.psoft.ajude.entidades.Usuario;
+import com.psoft.ajude.excecoes.BadRequestException;
+import com.psoft.ajude.excecoes.NotFoundException;
+import com.psoft.ajude.excecoes.UnauthorizedException;
 import com.psoft.ajude.filtros.TokenFilter;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -31,14 +34,14 @@ public class ServicoJWT {
 
         Optional<Usuario> optionalUsuario = servicoUsuario.getUsuario(email);
 
-        if (!optionalUsuario.isPresent()) throw new ServletException("Usuario invalido");
+        if (!optionalUsuario.isPresent()) throw new NotFoundException("Usuario invalido");
 
         return optionalUsuario.get();
     }
 
     public String getSujeitoDoToken(String authorizationHeader) throws ServletException {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            throw new ServletException("Token inexistente ou mal formatado!");
+            throw new BadRequestException("Token inexistente ou mal formatado!");
         }
 
         String token = authorizationHeader.substring(TokenFilter.TOKEN_INDEX);
@@ -47,7 +50,7 @@ public class ServicoJWT {
         try {
             subject = Jwts.parser().setSigningKey(TOKEN_KEY).parseClaimsJws(token).getBody().getSubject();
         } catch (SignatureException e) {
-            throw new ServletException("Token invalido ou expirado!");
+            throw new UnauthorizedException("Token invalido ou expirado!");
         }
         return subject;
     }
