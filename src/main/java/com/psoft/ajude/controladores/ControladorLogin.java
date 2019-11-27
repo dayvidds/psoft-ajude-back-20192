@@ -47,8 +47,11 @@ public class ControladorLogin {
         return new LoginResponse(token);
 
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Autenticacao invalida"),
+            @ApiResponse(code = 404, message = "Usuario nao esta cadastrado") })
     private void verificaSenha(Usuario usuario, Optional<Usuario> authUsuario) {
+        servicoUsuario.getUsuario(usuario.getEmail());
         if (!authUsuario.get().getSenha().equals(usuario.getSenha())) {
             throw new BadRequestException("Senha invalida!");
         }
