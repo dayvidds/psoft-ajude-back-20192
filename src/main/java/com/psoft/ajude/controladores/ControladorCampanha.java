@@ -28,7 +28,7 @@ public class ControladorCampanha {
             @ApiResponse(code = 200, message = "Campanha cadastrada com sucesso"),
             @ApiResponse(code = 400, message = "Erro no cadastro"),
             @ApiResponse(code = 401, message = "Erro na autenticacao do usuario") })
-    @ApiOperation(value="Cadastra uma campanha no sistema")
+    @ApiOperation(value="Cadastra campanha", notes= "Cadastra uma campanha no sistema")
     @PostMapping()
     public ResponseEntity<DTOCampanha> cadastraCampanha(@ApiParam(value="DTO da campanha") @RequestBody DTOCampanha campanha, @ApiParam(value="Token do usuario")@RequestHeader("Authorization") String token) throws ServletException {
         return new ResponseEntity<>(servicoCampanha.cadastrarCampanha(campanha, servicoJWT.getSujeitoDoToken(token)), HttpStatus.CREATED);
@@ -38,7 +38,7 @@ public class ControladorCampanha {
             @ApiResponse(code = 200, message = "busca realizada com sucesso"),
             @ApiResponse(code = 400, message = "Erro na busca"),
             @ApiResponse(code = 401, message = "Erro na autenticacao do usuario") })
-    @ApiOperation(value="Pesquisa campanhas no sistema")
+    @ApiOperation(value="Pesquisa campanhas", notes= "Pesquisa campanhas no sistema")
     @PostMapping("/pesquisa")
     public ResponseEntity<List<Campanha>> pesquisaCampanha(@ApiParam(value="DTO da pesquisa")@RequestBody DTOPesquisa dtoPesquisa, @ApiParam(value="Token do usuario") @RequestHeader("Authorization") String token) throws ServletException {
         this.servicoJWT.getSujeitoDoToken(token);
