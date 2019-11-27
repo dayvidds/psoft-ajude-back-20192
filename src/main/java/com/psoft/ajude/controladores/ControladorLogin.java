@@ -30,7 +30,7 @@ public class ControladorLogin {
             @ApiResponse(code = 400, message = "Autenticacao invalida"),
             @ApiResponse(code = 200, message = "Login realizado com sucesso"),
             @ApiResponse(code = 404, message = "Usuario nao esta cadastrado") })
-    @ApiOperation(value="Realiza o login do usuario no sistema")
+    @ApiOperation(value="Autentica usuario", notes = "Realiza o login do usuario no sistema e retorna o token de acesso")
     @PostMapping("/login")
     public LoginResponse authenticate(@ApiParam(value="Usuario") @RequestBody Usuario usuario){
 
