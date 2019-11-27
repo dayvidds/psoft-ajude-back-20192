@@ -41,7 +41,7 @@ public class ServicoJWT {
 
     public String getSujeitoDoToken(String authorizationHeader) throws ServletException {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            throw new BadRequestException("Token inexistente ou mal formatado!");
+            throw new UnauthorizedException("Token inexistente ou mal formatado!");
         }
 
         String token = authorizationHeader.substring(TokenFilter.TOKEN_INDEX);

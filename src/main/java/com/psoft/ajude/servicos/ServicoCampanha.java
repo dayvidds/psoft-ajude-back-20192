@@ -52,7 +52,7 @@ public class ServicoCampanha {
         );
 
         if (campanhaDAO.findAll().contains(campanha)){
-            throw new BadRequestException("Campanha inexistente, escolha outro nome");
+            throw new BadRequestException("Campanha já existente, escolha outro nome");
         };
 
         this.campanhaDAO.save(campanha);
@@ -76,6 +76,9 @@ public class ServicoCampanha {
     }
 
     public List<Comentario> adicionaComentario(DTOComentario dtoComentario, String urlCampanha, Usuario usuario) {
+        verificaExistenciaURL(urlCampanha);
+        verificaExistenciaUsuario(usuario);
+
         Comentario comentarioPai = dtoComentario.getIdComentarioPai() == 0 ? null : comentarioDAO.findById(dtoComentario.getIdComentarioPai()).get();
 
         Campanha campanha = campanhaDAO.findById(urlCampanha).get();
@@ -94,6 +97,9 @@ public class ServicoCampanha {
     }
 
     public Set<Usuario> toggleLike(String urlCampanha, Usuario usuario) {
+        verificaExistenciaURL(urlCampanha);
+        verificaExistenciaUsuario(usuario);
+
         Campanha campanha = campanhaDAO.findById(urlCampanha).get();
         campanha.toggleLike(usuario);
         return campanhaDAO.save(campanha).getLikesUsuarios();
@@ -107,6 +113,9 @@ public class ServicoCampanha {
     }
 
     public List<Doacao> adicionaDoacao(String urlCampanha, DTODoacao dtoDoacao, Usuario usuario) {
+        verificaExistenciaURL(urlCampanha);
+        verificaExistenciaUsuario(usuario);
+
         Campanha campanha = campanhaDAO.findById(urlCampanha).get();
         Doacao doacao = new Doacao(campanha, dtoDoacao, usuario);
         doacoesDAO.save(doacao);
@@ -115,8 +124,34 @@ public class ServicoCampanha {
     }
 
     public List<Comentario> removeComentario(Integer id, String urlCampanha, Usuario usuario) {
-        comentarioDAO.deleteById(id);
+        verificaExistenciaURL(urlCampanha);
+        verificaExistenciaUsuario(usuario);
+        verificaExistenciaComentario(id);
 
+        comentarioDAO.deleteById(id);
         return campanhaDAO.findById(urlCampanha).get().getComentarios();
+    }
+
+    private boolean verificaExistenciaComentario(Integer id) {
+        if (!this.comentarioDAO.findById(id).isPresent()){
+            throw new NotFoundException("Comentario nao cadastrado");
+        }
+        else return true;
+    }
+
+    private boolean verificaExistenciaUsuario(Usuario usuario) {
+        this.usuariosDAO.findAll().contains(usuario);
+        if (!this.usuariosDAO.findAll().contains(usuario)) {
+            throw new NotFoundException("Usuario nao cadastrado");
+        }
+        else return true;
+    }
+
+    private boolean verificaExistenciaURL(String urlCampanha) {
+        Optional<Campanha> optionalCampanha = campanhaDAO.findById(urlCampanha);
+        if (!optionalCampanha.isPresent()) {
+            throw new NotFoundException("Campanha nao cadastrada");
+        }
+        else return true;
     }
 }

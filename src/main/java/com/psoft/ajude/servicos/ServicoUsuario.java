@@ -9,6 +9,7 @@ import com.psoft.ajude.entidades.Campanha;
 import com.psoft.ajude.entidades.Doacao;
 import com.psoft.ajude.entidades.Usuario;
 import com.psoft.ajude.excecoes.BadRequestException;
+import com.psoft.ajude.excecoes.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class ServicoUsuario {
 
     public Optional<Usuario> getUsuario(String email) {
         if (!usuarioCadastrado(email)) {
-            throw new BadRequestException("Usuario nao cadastrado");
+            throw new NotFoundException("Usuario nao cadastrado");
         }
         return this.usuariosDAO.findById(email);
     }
