@@ -1,7 +1,6 @@
 package com.psoft.ajude.servicos;
 
 import com.psoft.ajude.entidades.Usuario;
-import com.psoft.ajude.excecoes.BadRequestException;
 import com.psoft.ajude.excecoes.NotFoundException;
 import com.psoft.ajude.excecoes.UnauthorizedException;
 import com.psoft.ajude.filtros.TokenFilter;

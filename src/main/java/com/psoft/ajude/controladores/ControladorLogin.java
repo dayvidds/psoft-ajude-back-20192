@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@Api(value="Login API")
+@Api(value = "Login API")
 @RestController
 @RequestMapping("/autorizacao")
 public class ControladorLogin {
@@ -29,11 +29,10 @@ public class ControladorLogin {
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Autenticacao invalida"),
             @ApiResponse(code = 200, message = "Login realizado com sucesso"),
-            @ApiResponse(code = 404, message = "Usuario nao esta cadastrado") })
-    @ApiOperation(value="Autentica usuario", notes = "Realiza o login do usuario no sistema e retorna o token de acesso")
+            @ApiResponse(code = 404, message = "Usuario nao esta cadastrado")})
+    @ApiOperation(value = "Autentica usuario", notes = "Realiza o login do usuario no sistema e retorna o token de acesso")
     @PostMapping("/login")
-    public LoginResponse authenticate(@ApiParam(value="Usuario") @RequestBody Usuario usuario){
-
+    public LoginResponse authenticate(@ApiParam(value = "Usuario") @RequestBody Usuario usuario) {
         Optional<Usuario> authUsuario = servicoUsuario.getUsuario(usuario.getEmail());
 
         if (!authUsuario.isPresent()) {
@@ -47,9 +46,10 @@ public class ControladorLogin {
         return new LoginResponse(token);
 
     }
+
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Autenticacao invalida"),
-            @ApiResponse(code = 404, message = "Usuario nao esta cadastrado") })
+            @ApiResponse(code = 404, message = "Usuario nao esta cadastrado")})
     private void verificaSenha(Usuario usuario, Optional<Usuario> authUsuario) {
         servicoUsuario.getUsuario(usuario.getEmail());
         if (!authUsuario.get().getSenha().equals(usuario.getSenha())) {
@@ -64,5 +64,4 @@ public class ControladorLogin {
             this.token = token;
         }
     }
-
 }
