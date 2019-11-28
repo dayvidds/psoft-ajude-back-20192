@@ -13,8 +13,11 @@ import com.psoft.ajude.excecoes.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ServicoUsuario {
@@ -65,7 +68,12 @@ public class ServicoUsuario {
         }
 
         Usuario usuario = this.usuariosDAO.findById(email).get();
-        List<Doacao> campanhasDoacao = this.doacaoDAO.findByDoador(usuario);
+        Set<Campanha> campanhasDoacao = new HashSet<>(
+                this.doacaoDAO.findByDoador(usuario)
+                .stream()
+                .map(Doacao::getCampanha)
+                .collect(Collectors.toList())
+        );
         List<Campanha> campanhasDono = this.campanhasDAO.findByUsuarioDono(usuario);
 
         return new DTOUsuarioPerfil(usuario, campanhasDoacao, campanhasDono);
