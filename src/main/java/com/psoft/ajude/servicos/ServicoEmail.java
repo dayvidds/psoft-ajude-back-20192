@@ -32,7 +32,7 @@ public class ServicoEmail {
 
 
     public String getCadastroEmailCorpo() {
-        return "Seu cadastro em nossa plataforma foi realizado com sucesso! acesse: wwww.google.com.br";
+        return "Seu cadastro em nossa plataforma foi realizado com sucesso! acesse: https://dayvidds.github.io/psoft-ajude-front-20192/";
     }
 
     public String getCadastroEmailSubject() {
