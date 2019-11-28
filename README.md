@@ -26,5 +26,3 @@ De forma a otimizar a comunicação foi adotado a criação de DTOs, pois seria 
 [Vídeo de demonstração da aplicação](https://www.youtube.com/watch?v=Awu26ElxPM0) <br/>
 [Documentação da API gerada pelo swagger](https://api-ajude.herokuapp.com/swagger-ui.html) <br/>
 [Aplicação](https://dayvidds.github.io/psoft-ajude-front-20192/#/) <br/>
-
-
