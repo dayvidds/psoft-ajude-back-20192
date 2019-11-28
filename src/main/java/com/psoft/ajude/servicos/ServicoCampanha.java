@@ -1,6 +1,7 @@
 package com.psoft.ajude.servicos;
 
 import com.psoft.ajude.comparadores.CampanhaDeadlineComparator;
+import com.psoft.ajude.comparadores.CampanhaLikesComparator;
 import com.psoft.ajude.comparadores.CampanhaMetaComparator;
 import com.psoft.ajude.daos.RepositorioCampanha;
 import com.psoft.ajude.daos.RepositorioComentario;
@@ -34,7 +35,7 @@ public class ServicoCampanha {
 
         metodosComparacao.put(MetodoComparacaoCampanha.META, new CampanhaMetaComparator());
         metodosComparacao.put(MetodoComparacaoCampanha.DEADLINE, new CampanhaDeadlineComparator());
-        metodosComparacao.put(MetodoComparacaoCampanha.LIKES, new CampanhaMetaComparator());
+        metodosComparacao.put(MetodoComparacaoCampanha.LIKES, new CampanhaLikesComparator());
     }
 
     public DTOCampanha cadastrarCampanha(DTOCampanha dtoCampanha, String emailDono) {
