@@ -15,7 +15,7 @@ Os controladores são responsáveis apenas por receber um comando a ser executad
 De forma a otimizar a comunicação foi adotado a criação de DTOs, pois seria ineficiente ficar a todo momento transferindo todas as informações.
 
 
-[Vídeo de demonstração da aplicação](https://google.com.br) <br/>
+[Vídeo de demonstração da aplicação](https://www.youtube.com/watch?v=Awu26ElxPM0) <br/>
 [Documentação da API gerada pelo swagger](https://api-ajude.herokuapp.com/swagger-ui.html) <br/>
 [Aplicação](https://dayvidds.github.io/psoft-ajude-front-20192/#/) <br/>
 
