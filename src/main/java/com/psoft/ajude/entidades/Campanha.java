@@ -39,7 +39,7 @@ public class Campanha {
     @OneToMany(mappedBy = "campanha")
     @ApiModelProperty(value = "Comentarios da campanha.")
     private List<Comentario> comentarios;
-    @OneToMany
+    @ManyToMany
     @ApiModelProperty(value = "Curtidas que a campanha recebeu.")
     private Set<Usuario> likesUsuarios;
 
