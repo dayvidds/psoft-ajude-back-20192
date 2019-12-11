@@ -1,10 +1,5 @@
 # Projeto de Software 
 
-## Cadastro para testes:
-
-- *Email*: testepsoft20@gmail.com
-- *Senha*: 1234d
-
 ## Detalhes
 
 Projeto da disciplina de Projeto de Software <br/>
